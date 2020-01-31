@@ -7,17 +7,13 @@ on:
       - release
 jobs:
   job-1:
-    if: github.event.pull_request.head == 'develop'
     runs-on: ubuntu-latest
+    env:
+      HEAD: ${{ github.event.pull_request.head }}
+      BASE: ${{ github.event.pull_request.base }}
     steps:
     - uses: actions/checkout@v2
     - name: run command
-      run: echo 'running'
-
-  job-2:
-    if: github.event.pull_request.head == 'release'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: run command
-      run: echo 'running'
+      run: |
+        echo "HEAD: $HEAD"
+        echo "BASE: $BASE"
