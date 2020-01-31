@@ -1,0 +1,20 @@
+name: Check merged true
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - release
+jobs:
+  job-1:
+    if: github.event.pull_request.head.ref == 'develop' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    env:
+      HEAD: ${{ github.event.pull_request.head.ref }}
+      BASE: ${{ github.event.pull_request.base.ref }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: run command
+      run: |
+        echo $HEAD
+        echo $BASE
